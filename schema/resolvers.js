@@ -39,6 +39,20 @@ const resolvers = {
             UserList.push(user);
             return user;
         }
+    },
+
+    Mutation: {
+        updateUsername: (parent, args) => {
+            const { id, newUsername } = args.input;
+            let userUpdate = null;
+            UserList.forEach((user) => {
+                if (user.id === id) {
+                    user.username = newUsername;
+                    userUpdate = user;
+                }
+                return userUpdate;
+            })
+        }
     }
 }
 
