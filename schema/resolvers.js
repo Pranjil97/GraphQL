@@ -6,9 +6,13 @@ const resolvers = {
 
         // USER RESOLVERS
         users: () => {
-            return UserList;
+            if (UserList) { return { users: UserList } };
+
+            return {
+                message: "No users found in the database"
+            }
         },
-        user: (parent, args) => {
+        user: (parent, args, context, info) => {
             const id = args.id;
             const user = _.find(UserList, { id: Number(id) });
             return user;
@@ -61,6 +65,16 @@ const resolvers = {
             return null;
         }
     },
+
+    UsersResult: {
+        __resolveType(obj) {
+            if (obj.users) {
+                return obj.users
+            }
+
+            return obj.message;
+        }
+    }
 }
 
 module.exports = { resolvers };

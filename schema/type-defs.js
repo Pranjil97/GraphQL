@@ -19,7 +19,7 @@ const typeDefs = gql`
     }
 
     type Query {
-        users: [User!]!
+        users: UserResult
         user(id: ID!): User!
         movies: [Movie!]!
         movie(name: String!): Movie!
@@ -48,7 +48,18 @@ const typeDefs = gql`
         Vietnam
         Brazil
         China 
+        Indian
     }
+
+    type UserSucessfulresult {
+        users: [User!]!
+    }
+
+    type UserErrorResult {
+        message: String!
+    }
+
+    union UserResult = UserSucessfulresult | UserErrorResult
 
 `;
 
